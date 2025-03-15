@@ -1,6 +1,6 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const { expect } = require("@playwright/test");
-const F1ResultsPage = require("../../tests/pageObjects/F1ResultsPage");
+const F1ResultsPage = require("../pages/F1ResultsPage");
 
 Given("I am on the {string} Formula 1 results page", async function (year) {
   console.log(year);

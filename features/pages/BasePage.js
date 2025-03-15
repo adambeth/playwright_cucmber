@@ -8,7 +8,7 @@ class BasePage {
    */
   constructor(page) {
     this.page = page;
-    this.baseUrl = process.env.BASE_URL || "https://www.bbc.com/sport";
+    this.baseUrl = process.env.BASE_URL || "https://www.bbc.com/";
   }
 
   /**

@@ -9,4 +9,4 @@ Feature: Sport Search Results
     When I enter "Sport in 2023" in the search field
     And I submit the search
     Then I should see at least 4 search results
-    And all results should be relevant to "Sport in 2023"
+    And all results should be relevant to "Sport 2023"

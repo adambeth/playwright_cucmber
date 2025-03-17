@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:cucumber": "cucumber-js",
+    "test:cucumber": "cucumber-js --format json:cucumber_report.json && node cucumber-html-report.js",
     "test:api": "cucumber-js --tags @api-test --format json:cucumber_report.json && node cucumber-html-report.js",
     "test:api:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --format json:cucumber_report.json && node cucumber-html-report.js",
     "test:countries": "cucumber-js --tags @api-test --name 'Validate the number of countries' --format json:cucumber_report.json && node cucumber-html-report.js",

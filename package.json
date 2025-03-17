@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:cucumber": "cucumber-js"
+    "test:cucumber": "cucumber-js",
+    "test:api": "cucumber-js --tags @schema-validation"
   },
   "repository": {
     "type": "git",

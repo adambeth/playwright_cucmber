@@ -53,6 +53,7 @@ Then(
     console.log("\n=== API Schema Validation Results ===");
     console.log(`Endpoint: ${apiEndpoint}`);
     console.log(`Validation Status: ${isValid ? "✅ PASSED" : "❌ FAILED"}`);
+    console.log(`Total countries in response: ${this.responseData.length}`);
 
     if (!isValid) {
       console.log("\nValidation Errors:");
@@ -61,8 +62,6 @@ Then(
       });
     }
 
-    console.log("\nResponse Data:");
-    console.log(JSON.stringify(this.responseData, null, 2));
     console.log("===================================\n");
   }
 );

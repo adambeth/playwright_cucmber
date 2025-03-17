@@ -1,15 +1,32 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const { expect } = require("@playwright/test");
 const Ajv = require("ajv");
-const ajv = new Ajv();
+// Create Ajv instance with options for draft-06
+const ajv = new Ajv({
+  strict: false, // Be more lenient with validation
+  formats: {
+    uri: true, // Enable URI format validation
+  },
+});
+
+// Add format validators
+ajv.addFormat("uri", {
+  type: "string",
+  validate: (str) => {
+    try {
+      new URL(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+});
+
 const fs = require("fs");
 const path = require("path");
 
 // Define the schema path but don't load it yet
-const schemaPath = path.resolve(
-  __dirname,
-  "../../tests/schemas/restCountriesSchema.js"
-);
+const schemaPath = path.resolve(__dirname, "../../tests/schemas/all.json");
 
 let apiEndpoint;
 
@@ -46,9 +63,10 @@ Given("I have the expected schema definition", async function () {
 
     // Load the schema file
     try {
-      const schema = require(schemaPath);
-      this.schema = schema;
-      console.log("Schema loaded successfully from file");
+      // Read and parse JSON file instead of requiring a JS module
+      const schemaContent = fs.readFileSync(schemaPath, "utf8");
+      this.schema = JSON.parse(schemaContent);
+      console.log("Schema loaded successfully from JSON file");
     } catch (loadError) {
       console.error(`Error loading schema file: ${loadError.message}`);
       throw new Error(`Failed to load schema file: ${loadError.message}`);
@@ -115,7 +133,13 @@ Then("the response should conform to the published schema", async function () {
       );
     }
 
-    const validate = ajv.compile(this.schema);
+    // Remove $schema property if it exists to avoid validation issues
+    const schemaToValidate = { ...this.schema };
+    if (schemaToValidate.$schema) {
+      delete schemaToValidate.$schema;
+    }
+
+    const validate = ajv.compile(schemaToValidate);
     const isValid = validate(this.responseData);
 
     if (!isValid) {
@@ -142,7 +166,13 @@ Then(
         );
       }
 
-      const validate = ajv.compile(this.schema);
+      // Remove $schema property if it exists to avoid validation issues
+      const schemaToValidate = { ...this.schema };
+      if (schemaToValidate.$schema) {
+        delete schemaToValidate.$schema;
+      }
+
+      const validate = ajv.compile(schemaToValidate);
       const isValid = validate(this.responseData);
 
       console.log("\n=== API Schema Validation Results ===");

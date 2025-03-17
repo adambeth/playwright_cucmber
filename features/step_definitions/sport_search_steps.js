@@ -26,11 +26,25 @@ Then("I should see at least {int} search results", async function (minResults) {
  * Verifies that all search results contain the specified search terms
  * This step ensures that each result contains ALL of the words in the search term
  * For example, if searching for "sport news", both "sport" AND "news" must be present
+ *
+ * @param {string} searchTerm - The search term(s) to check for. Multiple terms should be space-separated
+ * @example
+ * // Single term search
+ * Then('all results should be relevant to "sports"')
+ *
+ * // Multiple terms search
+ * Then('all results should be relevant to "sports news"')
+ *
+ * @throws {Error} When any search result does not contain all specified terms
+ * @returns {Promise<void>}
  */
 Then("all results should be relevant to {string}", async function (searchTerm) {
   const resultsText = await searchPage.getSearchResultsText();
   const searchTerms = searchTerm.toLowerCase().split(" ");
+  console.log("Searching for terms:", searchTerms);
+
   let allResultsRelevant = true;
+  let irrelevantResults = [];
 
   for (const resultText of resultsText) {
     const lowerResultText = resultText.toLowerCase();
@@ -40,8 +54,28 @@ Then("all results should be relevant to {string}", async function (searchTerm) {
 
     if (!isRelevant) {
       allResultsRelevant = false;
-      break;
+      irrelevantResults.push(resultText);
+      console.log(
+        `❌ Result does not contain all search terms: "${resultText.substring(
+          0,
+          100
+        )}..."`
+      );
+    } else {
+      console.log(
+        `✅ Result contains all search terms: "${resultText.substring(
+          0,
+          100
+        )}..."`
+      );
     }
+  }
+
+  if (!allResultsRelevant) {
+    console.log("\nSearch terms not found in these results:");
+    irrelevantResults.forEach((result) =>
+      console.log(`- ${result.substring(0, 100)}...`)
+    );
   }
 
   expect(

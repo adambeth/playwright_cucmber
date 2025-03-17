@@ -21,10 +21,10 @@ AfterAll(async function () {
 });
 
 // Skip browser initialization for API tests
-Before({ tags: "@schema-validation" }, async function () {
-  // Don't create a browser context or page for API tests
-  this.isApiTest = true;
-});
+// Before({ tags: "@schema-validation" }, async function () {
+//   // Don't create a browser context or page for API tests
+//   this.isApiTest = true;
+// });
 
 // Regular setup for UI tests
 Before({ tags: "not @schema-validation" }, async function () {

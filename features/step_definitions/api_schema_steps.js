@@ -5,38 +5,62 @@ const ajv = new Ajv();
 const fs = require("fs");
 const path = require("path");
 
-// Import schema with error handling
-let restCountriesSchema;
-try {
-  const schemaPath = path.resolve(
-    __dirname,
-    "../../tests/schemas/restCountriesSchema.js"
-  );
-  if (!fs.existsSync(schemaPath)) {
-    console.error(`Schema file not found: ${schemaPath}`);
-    restCountriesSchema = { type: "array", items: { type: "object" } }; // Fallback schema
-  } else {
-    restCountriesSchema = require("../../tests/schemas/restCountriesSchema");
-  }
-} catch (error) {
-  console.error(`Error loading schema file: ${error.message}`);
-  restCountriesSchema = { type: "array", items: { type: "object" } }; // Fallback schema
-}
+// Define the schema path but don't load it yet
+const schemaPath = path.resolve(
+  __dirname,
+  "../../tests/schemas/restCountriesSchema.js"
+);
 
 let apiEndpoint;
 
 Given("the API endpoint is available", async function () {
-  apiEndpoint = "https://restcountries.com/v3.1/all/";
+  try {
+    apiEndpoint = "https://restcountries.com/v3.1/all/";
+
+    // Actually check if the endpoint is available
+    const healthCheck = await fetch(apiEndpoint, {
+      method: "HEAD", // Use HEAD request for faster response
+      timeout: 5000, // Set a reasonable timeout
+    });
+
+    if (!healthCheck.ok) {
+      throw new Error(`API endpoint returned status: ${healthCheck.status}`);
+    }
+
+    console.log(
+      `API endpoint is available: ${apiEndpoint} (Status: ${healthCheck.status})`
+    );
+  } catch (error) {
+    console.error(`API endpoint is not available: ${error.message}`);
+    throw new Error(`API endpoint is not available: ${error.message}`);
+  }
 });
 
 Given("I have the expected schema definition", async function () {
   try {
-    // Schema is now imported from a separate file with error handling
-    this.schema = restCountriesSchema;
-    console.log("Schema loaded successfully");
+    // Check if schema file exists
+    if (!fs.existsSync(schemaPath)) {
+      console.error(`Schema file not found: ${schemaPath}`);
+      throw new Error(`Schema file not found: ${schemaPath}`);
+    }
+
+    // Load the schema file
+    try {
+      const schema = require(schemaPath);
+      this.schema = schema;
+      console.log("Schema loaded successfully from file");
+    } catch (loadError) {
+      console.error(`Error loading schema file: ${loadError.message}`);
+      throw new Error(`Failed to load schema file: ${loadError.message}`);
+    }
+
+    // Validate that we have a schema
+    if (!this.schema) {
+      throw new Error("Schema is undefined after loading");
+    }
   } catch (error) {
     console.error(`Error setting schema: ${error.message}`);
-    throw new Error(`Failed to load schema: ${error.message}`);
+    throw error; // Re-throw the error to fail the test
   }
 });
 

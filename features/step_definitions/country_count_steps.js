@@ -1,49 +1,26 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const { expect } = require("@playwright/test");
+// We don't need to import apiEndpoint anymore
+// const { apiEndpoint } = require("./common_api_steps");
 
-// The endpoint and expected counts will be set from the world object
-let apiEndpoint;
+// The expected counts will be set from the world object
 let EXPECTED_COUNTRY_COUNT;
 
-Given("the countries API endpoint is available", async function () {
-  try {
-    // Get the endpoint and configuration from the world object
-    apiEndpoint = this.apiConfig.countriesApiEndpoint;
-    EXPECTED_COUNTRY_COUNT =
-      this.apiConfig.expectedCountryCounts.sovereignStates;
-    const timeout = this.apiConfig.apiTimeout;
-
-    // Check if the endpoint is available
-    const healthCheck = await fetch(apiEndpoint, {
-      method: "HEAD",
-      timeout: timeout,
-    });
-
-    if (!healthCheck.ok) {
-      throw new Error(`API endpoint returned status: ${healthCheck.status}`);
-    }
-
-    console.log(
-      `Countries API endpoint is available: ${apiEndpoint} (Status: ${healthCheck.status})`
-    );
-  } catch (error) {
-    console.error(`Countries API endpoint is not available: ${error.message}`);
-    throw new Error(
-      `Countries API endpoint is not available: ${error.message}`
-    );
-  }
-});
+// Note: The "the countries API endpoint is available" step is now in common_api_steps.js
 
 When("I retrieve the list of all countries", async function () {
   try {
-    const response = await fetch(apiEndpoint);
+    // Use the apiEndpoint from the world object
+    const response = await fetch(this.apiEndpoint);
     this.response = response;
     console.log(
-      `API request to ${apiEndpoint} completed with status: ${response.status}`
+      `API request to ${this.apiEndpoint} completed with status: ${response.status}`
     );
   } catch (error) {
     console.error(`API request failed: ${error.message}`);
-    throw new Error(`Failed to fetch from ${apiEndpoint}: ${error.message}`);
+    throw new Error(
+      `Failed to fetch from ${this.apiEndpoint}: ${error.message}`
+    );
   }
 });
 
@@ -58,6 +35,8 @@ Then(
       }
 
       // Get configuration from the world object
+      EXPECTED_COUNTRY_COUNT =
+        this.apiConfig.expectedCountryCounts.sovereignStates;
       const minUnMembers = this.apiConfig.expectedCountryCounts.minUnMembers;
       const minIndependentCountries =
         this.apiConfig.expectedCountryCounts.minIndependentCountries;
@@ -115,7 +94,7 @@ Then(
       }
 
       console.log("\n=== Country Count Validation Results ===");
-      console.log(`Endpoint: ${apiEndpoint}`);
+      console.log(`Endpoint: ${this.apiEndpoint}`);
       console.log(
         `Total entities in API response: ${this.responseData.length}`
       );
@@ -176,6 +155,7 @@ Then(
   }
 );
 
+// Custom steps for the country count feature
 Then(
   "the countries API response status code should be {int}",
   async function (expectedStatus) {

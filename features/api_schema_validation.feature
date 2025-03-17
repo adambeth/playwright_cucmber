@@ -4,7 +4,7 @@ Feature: API Schema Validation
   so that my application can reliably consume and process the data returned
 
   Background:
-    Given the API endpoint is available
+    Given the countries API endpoint is available
     And I have the expected schema definition
 
   @api-test

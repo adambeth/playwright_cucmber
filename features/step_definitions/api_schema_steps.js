@@ -1,6 +1,9 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const { expect } = require("@playwright/test");
 const Ajv = require("ajv");
+// We don't need to import apiEndpoint anymore
+// const { apiEndpoint } = require("./common_api_steps");
+
 // Create Ajv instance with options for draft-06
 const ajv = new Ajv({
   strict: false, // Be more lenient with validation
@@ -28,33 +31,7 @@ const path = require("path");
 // Define the schema path but don't load it yet
 const schemaPath = path.resolve(__dirname, "../../tests/schemas/all.json");
 
-// The endpoint will be set from the world object
-let apiEndpoint;
-
-Given("the API endpoint is available", async function () {
-  try {
-    // Get the endpoint from the world object
-    apiEndpoint = this.apiConfig.countriesApiEndpoint;
-    const timeout = this.apiConfig.apiTimeout;
-
-    // Actually check if the endpoint is available
-    const healthCheck = await fetch(apiEndpoint, {
-      method: "HEAD", // Use HEAD request for faster response
-      timeout: timeout, // Use timeout from config
-    });
-
-    if (!healthCheck.ok) {
-      throw new Error(`API endpoint returned status: ${healthCheck.status}`);
-    }
-
-    console.log(
-      `API endpoint is available: ${apiEndpoint} (Status: ${healthCheck.status})`
-    );
-  } catch (error) {
-    console.error(`API endpoint is not available: ${error.message}`);
-    throw new Error(`API endpoint is not available: ${error.message}`);
-  }
-});
+// Note: The "the countries API endpoint is available" step is now in common_api_steps.js
 
 Given("I have the expected schema definition", async function () {
   try {
@@ -87,40 +64,22 @@ Given("I have the expected schema definition", async function () {
 
 When("I send a GET request to the API endpoint", async function () {
   try {
-    const response = await fetch(apiEndpoint);
+    // Use the apiEndpoint from the world object
+    const response = await fetch(this.apiEndpoint);
     this.response = response;
     console.log(
-      `API request to ${apiEndpoint} completed with status: ${response.status}`
+      `API request to ${this.apiEndpoint} completed with status: ${response.status}`
     );
   } catch (error) {
     console.error(`API request failed: ${error.message}`);
-    throw new Error(`Failed to fetch from ${apiEndpoint}: ${error.message}`);
+    throw new Error(
+      `Failed to fetch from ${this.apiEndpoint}: ${error.message}`
+    );
   }
 });
 
-Then(
-  "the response status code should be {int}",
-  async function (expectedStatus) {
-    try {
-      expect(this.response.status).toBe(expectedStatus);
-    } catch (error) {
-      throw new Error(
-        `Expected status ${expectedStatus} but got ${this.response.status}: ${error.message}`
-      );
-    }
-  }
-);
-
-Then("the response should be valid JSON", async function () {
-  try {
-    this.responseData = await this.response.json();
-    expect(() => JSON.parse(JSON.stringify(this.responseData))).not.toThrow();
-    console.log("Response is valid JSON");
-  } catch (error) {
-    console.error("Invalid JSON response:", error.message);
-    throw new Error(`Response is not valid JSON: ${error.message}`);
-  }
-});
+// Note: The "the response status code should be {int}" step is now in common_api_steps.js
+// Note: The "the response should be valid JSON" step is now in common_api_steps.js
 
 Then("the response should conform to the published schema", async function () {
   try {
@@ -179,7 +138,7 @@ Then(
       const isValid = validate(this.responseData);
 
       console.log("\n=== API Schema Validation Results ===");
-      console.log(`Endpoint: ${apiEndpoint}`);
+      console.log(`Endpoint: ${this.apiEndpoint}`);
       console.log(`Validation Status: ${isValid ? "✅ PASSED" : "❌ FAILED"}`);
       console.log(`Total countries in response: ${this.responseData.length}`);
 

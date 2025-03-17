@@ -13,11 +13,11 @@ When("I retrieve the list of all countries", async function () {
     // Use the apiEndpoint from the world object
     const response = await fetch(this.apiEndpoint);
     this.response = response;
-    console.log(
+    this.log(
       `API request to ${this.apiEndpoint} completed with status: ${response.status}`
     );
   } catch (error) {
-    console.error(`API request failed: ${error.message}`);
+    this.logError(`API request failed: ${error.message}`);
     throw new Error(
       `Failed to fetch from ${this.apiEndpoint}: ${error.message}`
     );
@@ -35,7 +35,6 @@ Then(
       }
 
       // Get configuration from the world object
-      //We could stor this in a variable file but adding it to the world object is easier for now and shows my understanding of the world object in cucumber
       EXPECTED_COUNTRY_COUNT =
         this.apiConfig.expectedCountryCounts.sovereignStates;
       const minUnMembers = this.apiConfig.expectedCountryCounts.minUnMembers;
@@ -60,10 +59,10 @@ Then(
 
       // Note: The API returns more entities than the official 195 countries
       // We're logging the discrepancy but not failing the test
-      console.log(`Expected country count: ${EXPECTED_COUNTRY_COUNT}`);
-      console.log(`Actual entities in API: ${actualCountryCount}`);
-      console.log(`UN member states: ${this.unMemberStates}`);
-      console.log(`Independent countries: ${this.independentCountries}`);
+      this.log(`Expected country count: ${EXPECTED_COUNTRY_COUNT}`);
+      this.log(`Actual entities in API: ${actualCountryCount}`);
+      this.log(`UN member states: ${this.unMemberStates}`);
+      this.log(`Independent countries: ${this.independentCountries}`);
 
       // The API data shows 192 UN members, which is close to the expected 193
       // This could be due to different recognition criteria or data currency
@@ -78,7 +77,7 @@ Then(
       // And we should have more total entities than the official country count
       expect(actualCountryCount).toBeGreaterThan(EXPECTED_COUNTRY_COUNT);
     } catch (error) {
-      console.error("Country count validation error:", error.message);
+      this.logError(`Country count validation error: ${error.message}`);
       throw error;
     }
   }
@@ -94,21 +93,25 @@ Then(
         );
       }
 
-      console.log("\n=== Country Count Validation Results ===");
-      console.log(`Endpoint: ${this.apiEndpoint}`);
-      console.log(
-        `Total entities in API response: ${this.responseData.length}`
+      // Always log the summary results, regardless of verbose setting
+      this.log("\n=== Country Count Validation Results ===", true);
+      this.log(`Endpoint: ${this.apiEndpoint}`, true);
+      this.log(
+        `Total entities in API response: ${this.responseData.length}`,
+        true
       );
-      console.log(`UN member states: ${this.unMemberStates}`);
-      console.log(`Independent countries: ${this.independentCountries}`);
-      console.log(
-        `Expected sovereign states (UN + Vatican City + Palestine): ${EXPECTED_COUNTRY_COUNT}`
+      this.log(`UN member states: ${this.unMemberStates}`, true);
+      this.log(`Independent countries: ${this.independentCountries}`, true);
+      this.log(
+        `Expected sovereign states (UN + Vatican City + Palestine): ${EXPECTED_COUNTRY_COUNT}`,
+        true
       );
 
       // Calculate the difference
       const difference = this.responseData.length - EXPECTED_COUNTRY_COUNT;
-      console.log(
-        `Difference (includes territories, dependencies, etc.): ${difference}`
+      this.log(
+        `Difference (includes territories, dependencies, etc.): ${difference}`,
+        true
       );
 
       // List some examples of non-sovereign territories that might be included
@@ -117,8 +120,11 @@ Then(
         .slice(0, 5)
         .map((country) => country.name.common);
 
-      console.log("\nExamples of non-UN member entities included in the API:");
-      nonSovereignExamples.forEach((name) => console.log(`- ${name}`));
+      this.log(
+        "\nExamples of non-UN member entities included in the API:",
+        true
+      );
+      nonSovereignExamples.forEach((name) => this.log(`- ${name}`, true));
 
       // List the continents and count countries per continent
       const continentCounts = {};
@@ -130,25 +136,28 @@ Then(
         }
       });
 
-      console.log("\nCountries by continent:");
+      this.log("\nCountries by continent:", true);
       Object.entries(continentCounts)
         .sort((a, b) => b[1] - a[1])
         .forEach(([continent, count]) => {
-          console.log(`- ${continent}: ${count}`);
+          this.log(`- ${continent}: ${count}`, true);
         });
 
-      console.log(
-        "\nNote: The discrepancy is expected as the API includes territories,"
+      this.log(
+        "\nNote: The discrepancy is expected as the API includes territories,",
+        true
       );
-      console.log(
-        "dependencies, and other non-sovereign entities in addition to the"
+      this.log(
+        "dependencies, and other non-sovereign entities in addition to the",
+        true
       );
-      console.log(
-        `${EXPECTED_COUNTRY_COUNT} widely recognized sovereign states.`
+      this.log(
+        `${EXPECTED_COUNTRY_COUNT} widely recognized sovereign states.`,
+        true
       );
-      console.log("===================================\n");
+      this.log("===================================\n", true);
     } catch (error) {
-      console.error("Error printing country count results:", error.message);
+      this.logError(`Error printing country count results: ${error.message}`);
       throw new Error(
         `Failed to print country count results: ${error.message}`
       );
@@ -163,6 +172,9 @@ Then(
     try {
       expect(this.response.status).toBe(expectedStatus);
     } catch (error) {
+      this.logError(
+        `Expected status ${expectedStatus} but got ${this.response.status}: ${error.message}`
+      );
       throw new Error(
         `Expected status ${expectedStatus} but got ${this.response.status}: ${error.message}`
       );
@@ -174,9 +186,9 @@ Then("the countries API response should be valid JSON", async function () {
   try {
     this.responseData = await this.response.json();
     expect(() => JSON.parse(JSON.stringify(this.responseData))).not.toThrow();
-    console.log("Response is valid JSON");
+    this.log("Response is valid JSON");
   } catch (error) {
-    console.error("Invalid JSON response:", error.message);
+    this.logError(`Invalid JSON response: ${error.message}`);
     throw new Error(`Response is not valid JSON: ${error.message}`);
   }
 });

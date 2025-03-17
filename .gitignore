@@ -1,4 +1,11 @@
 node_modules
 .DS_Store
 
+# Cucumber reporting files
 cucumber-report.html
+cucumber_report.json
+reports/
+reports/cucumber-report.html
+reports/cucumber-report/
+reports/cucumber_report_compatible.json
+cucumber_report.json

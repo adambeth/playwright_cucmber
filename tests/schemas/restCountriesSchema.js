@@ -3,6 +3,7 @@
  * Validates the structure of country data returned by the API
  *
  * Note: Some countries may not have all properties, so many are made optional
+ * I added this to show that you can use a schema object also to validate the response
  */
 const restCountriesSchema = {
   type: "array",

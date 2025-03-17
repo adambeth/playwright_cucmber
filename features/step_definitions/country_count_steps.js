@@ -35,6 +35,7 @@ Then(
       }
 
       // Get configuration from the world object
+      //We could stor this in a variable file but adding it to the world object is easier for now and shows my understanding of the world object in cucumber
       EXPECTED_COUNTRY_COUNT =
         this.apiConfig.expectedCountryCounts.sovereignStates;
       const minUnMembers = this.apiConfig.expectedCountryCounts.minUnMembers;

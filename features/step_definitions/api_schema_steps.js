@@ -41,7 +41,7 @@ Given("I have the expected schema definition", async function () {
       throw new Error(`Schema file not found: ${schemaPath}`);
     }
 
-    // Load the schema file
+    // Load the schema file and data to the world object
     try {
       // Read and parse JSON file instead of requiring a JS module
       const schemaContent = fs.readFileSync(schemaPath, "utf8");
@@ -62,6 +62,7 @@ Given("I have the expected schema definition", async function () {
   }
 });
 
+//we could make a common step for any api calls and use a switch statement to determine the method to use
 When("I send a GET request to the API endpoint", async function () {
   try {
     // Use the apiEndpoint from the world object
@@ -77,9 +78,6 @@ When("I send a GET request to the API endpoint", async function () {
     );
   }
 });
-
-// Note: The "the response status code should be {int}" step is now in common_api_steps.js
-// Note: The "the response should be valid JSON" step is now in common_api_steps.js
 
 Then("the response should conform to the published schema", async function () {
   try {

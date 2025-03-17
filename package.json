@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test:cucumber": "cucumber-js",
-    "test:api": "cucumber-js --tags @schema-validation"
+    "test:api": "cucumber-js --tags @api-test",
+    "test:countries": "cucumber-js --tags @api-test --name 'Validate the number of countries'",
+    "test:schema": "cucumber-js --tags @api-test --name 'Validate API Response Schema'"
   },
   "repository": {
     "type": "git",

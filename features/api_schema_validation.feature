@@ -7,7 +7,7 @@ Feature: API Schema Validation
     Given the API endpoint is available
     And I have the expected schema definition
 
-  @schema-validation
+  @api-test
   Scenario: Validate API Response Schema
     When I send a GET request to the API endpoint
     Then the response status code should be 200

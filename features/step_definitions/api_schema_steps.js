@@ -28,16 +28,19 @@ const path = require("path");
 // Define the schema path but don't load it yet
 const schemaPath = path.resolve(__dirname, "../../tests/schemas/all.json");
 
+// The endpoint will be set from the world object
 let apiEndpoint;
 
 Given("the API endpoint is available", async function () {
   try {
-    apiEndpoint = "https://restcountries.com/v3.1/all/";
+    // Get the endpoint from the world object
+    apiEndpoint = this.apiConfig.countriesApiEndpoint;
+    const timeout = this.apiConfig.apiTimeout;
 
     // Actually check if the endpoint is available
     const healthCheck = await fetch(apiEndpoint, {
       method: "HEAD", // Use HEAD request for faster response
-      timeout: 5000, // Set a reasonable timeout
+      timeout: timeout, // Use timeout from config
     });
 
     if (!healthCheck.ok) {

@@ -36,11 +36,11 @@ When(
       // Make the API request
       const response = await fetch(southAfricaEndpoint);
       this.response = response;
-      console.log(
+      this.log(
         `API request to ${southAfricaEndpoint} completed with status: ${response.status}`
       );
     } catch (error) {
-      console.error(`API request failed: ${error.message}`);
+      this.logError(`API request failed: ${error.message}`);
       throw new Error(
         `Failed to fetch from ${southAfricaEndpoint}: ${error.message}`
       );
@@ -71,14 +71,14 @@ Then("I should verify South Africa's official languages", async function () {
     this.languages = southAfrica.languages;
 
     // Log the languages found
-    console.log("South Africa languages found in API:");
+    this.log("South Africa languages found in API:");
     Object.entries(this.languages).forEach(([code, name]) => {
-      console.log(`- ${code}: ${name}`);
+      this.log(`- ${code}: ${name}`);
     });
 
     // Verify that we have at least some of the expected languages
     const languageCodes = Object.keys(this.languages);
-    console.log("language codes", languageCodes);
+    this.log("language codes", languageCodes);
     const expectedCodes = Object.keys(EXPECTED_LANGUAGES);
 
     // Check that we have at least some of the expected languages
@@ -90,7 +90,7 @@ Then("I should verify South Africa's official languages", async function () {
     // We should find at least some of the expected languages
     expect(foundLanguages.length).toBeGreaterThan(0);
   } catch (error) {
-    console.error("Language validation error:", error.message);
+    this.logError(`Language validation error: ${error.message}`);
     throw error;
   }
 });
@@ -119,15 +119,18 @@ Then(
 
       // Modified: Now we WILL fail the test if SASL is not found
       if (this.hasSASL) {
-        console.log(
-          "✅ South African Sign Language (SASL) is included in the official languages"
+        this.log(
+          "✅ South African Sign Language (SASL) is included in the official languages",
+          true
         );
       } else {
-        console.log(
-          "❌ South African Sign Language (SASL) is NOT included in the official languages"
+        this.log(
+          "❌ South African Sign Language (SASL) is NOT included in the official languages",
+          true
         );
-        console.log(
-          "This is a critical policy gap that needs to be addressed."
+        this.log(
+          "This is a critical policy gap that needs to be addressed.",
+          true
         );
         // Fail the test with a clear message
         throw new Error(
@@ -136,7 +139,7 @@ Then(
         );
       }
     } catch (error) {
-      console.error("SASL check error:", error.message);
+      this.logError(`SASL check error: ${error.message}`);
       throw error;
     }
   }
@@ -152,54 +155,59 @@ Then(
         );
       }
 
-      console.log("\n=== South Africa Language Validation Results ===");
-      console.log(`Endpoint: ${southAfricaEndpoint}`);
+      // Always log the summary results, regardless of verbose setting
+      this.log("\n=== South Africa Language Validation Results ===", true);
+      this.log(`Endpoint: ${southAfricaEndpoint}`, true);
 
       // Print the languages found in the API
-      console.log("\nLanguages found in API:");
+      this.log("\nLanguages found in API:", true);
       Object.entries(this.languages).forEach(([code, name]) => {
-        console.log(`- ${code}: ${name}`);
+        this.log(`- ${code}: ${name}`, true);
       });
 
       // Print the expected languages
-      console.log("\nExpected official languages:");
+      this.log("\nExpected official languages:", true);
       Object.entries(EXPECTED_LANGUAGES).forEach(([code, name]) => {
         const found = Object.keys(this.languages).includes(code);
-        console.log(`- ${code}: ${name} ${found ? "✅" : "❌"}`);
+        this.log(`- ${code}: ${name} ${found ? "✅" : "❌"}`, true);
       });
 
       // Print SASL status
-      console.log("\nSouth African Sign Language (SASL) Status:");
+      this.log("\nSouth African Sign Language (SASL) Status:", true);
       if (this.hasSASL) {
-        console.log("✅ SASL is recognized in the API data");
+        this.log("✅ SASL is recognized in the API data", true);
       } else {
-        console.log("❌ SASL is NOT recognized in the API data");
-        console.log(
-          "Recommendation: Include SASL as an official language in educational policies"
+        this.log("❌ SASL is NOT recognized in the API data", true);
+        this.log(
+          "Recommendation: Include SASL as an official language in educational policies",
+          true
         );
-        console.log(
-          "and ensure it is properly represented in international databases."
+        this.log(
+          "and ensure it is properly represented in international databases.",
+          true
         );
       }
 
       // Print policy recommendation
-      console.log("\nPolicy Recommendation:");
-      console.log(
-        "As the Minister of Education, ensure that South African Sign Language (SASL)"
+      this.log("\nPolicy Recommendation:", true);
+      this.log(
+        "As the Minister of Education, ensure that South African Sign Language (SASL)",
+        true
       );
-      console.log(
-        "is officially recognized as one of South Africa's official languages"
+      this.log(
+        "is officially recognized as one of South Africa's official languages",
+        true
       );
-      console.log(
-        "so that it is fully incorporated into educational policies, resources,"
+      this.log(
+        "so that it is fully incorporated into educational policies, resources,",
+        true
       );
-      console.log("and inclusive learning environments.");
+      this.log("and inclusive learning environments.", true);
 
-      console.log("===================================\n");
+      this.log("===================================\n", true);
     } catch (error) {
-      console.error(
-        "Error printing language validation results:",
-        error.message
+      this.logError(
+        `Error printing language validation results: ${error.message}`
       );
       throw new Error(
         `Failed to print language validation results: ${error.message}`

@@ -5,6 +5,10 @@ const { setWorldConstructor } = require("@cucumber/cucumber");
  */
 class CustomWorld {
   constructor() {
+    // Check if verbose logging is enabled via command line parameter
+    // Default to true if not specified
+    this.verboseLogging = process.env.VERBOSE_LOGGING !== "false";
+
     // Common API configuration
     this.apiConfig = {
       // Base URL for the REST Countries API
@@ -26,6 +30,25 @@ class CustomWorld {
         minIndependentCountries: 190,
       },
     };
+  }
+
+  /**
+   * Custom logging function that respects the verbose logging setting
+   * @param {string} message - The message to log
+   * @param {boolean} forceLog - Whether to log even if verbose logging is disabled
+   */
+  log(message, forceLog = false) {
+    if (this.verboseLogging || forceLog) {
+      console.log(message);
+    }
+  }
+
+  /**
+   * Custom error logging function that always logs
+   * @param {string} message - The error message to log
+   */
+  logError(message) {
+    console.error(message);
   }
 }
 

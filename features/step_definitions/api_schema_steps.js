@@ -37,18 +37,18 @@ Given("I have the expected schema definition", async function () {
   try {
     // Check if schema file exists
     if (!fs.existsSync(schemaPath)) {
-      console.error(`Schema file not found: ${schemaPath}`);
+      this.logError(`Schema file not found: ${schemaPath}`);
       throw new Error(`Schema file not found: ${schemaPath}`);
     }
 
-    // Load the schema file and data to the world object
+    // Load the schema file
     try {
       // Read and parse JSON file instead of requiring a JS module
       const schemaContent = fs.readFileSync(schemaPath, "utf8");
       this.schema = JSON.parse(schemaContent);
-      console.log("Schema loaded successfully from JSON file");
+      this.log("Schema loaded successfully from JSON file");
     } catch (loadError) {
-      console.error(`Error loading schema file: ${loadError.message}`);
+      this.logError(`Error loading schema file: ${loadError.message}`);
       throw new Error(`Failed to load schema file: ${loadError.message}`);
     }
 
@@ -57,22 +57,21 @@ Given("I have the expected schema definition", async function () {
       throw new Error("Schema is undefined after loading");
     }
   } catch (error) {
-    console.error(`Error setting schema: ${error.message}`);
+    this.logError(`Error setting schema: ${error.message}`);
     throw error; // Re-throw the error to fail the test
   }
 });
 
-//we could make a common step for any api calls and use a switch statement to determine the method to use
 When("I send a GET request to the API endpoint", async function () {
   try {
     // Use the apiEndpoint from the world object
     const response = await fetch(this.apiEndpoint);
     this.response = response;
-    console.log(
+    this.log(
       `API request to ${this.apiEndpoint} completed with status: ${response.status}`
     );
   } catch (error) {
-    console.error(`API request failed: ${error.message}`);
+    this.logError(`API request failed: ${error.message}`);
     throw new Error(
       `Failed to fetch from ${this.apiEndpoint}: ${error.message}`
     );
@@ -103,7 +102,7 @@ Then("the response should conform to the published schema", async function () {
     const isValid = validate(this.responseData);
 
     if (!isValid) {
-      console.log("Schema validation errors:", validate.errors);
+      this.log("Schema validation errors:", validate.errors);
       throw new Error(
         `Schema validation failed: ${JSON.stringify(validate.errors)}`
       );
@@ -111,7 +110,7 @@ Then("the response should conform to the published schema", async function () {
 
     expect(isValid).toBeTruthy();
   } catch (error) {
-    console.error("Schema validation error:", error.message);
+    this.logError(`Schema validation error: ${error.message}`);
     throw error;
   }
 });
@@ -135,21 +134,28 @@ Then(
       const validate = ajv.compile(schemaToValidate);
       const isValid = validate(this.responseData);
 
-      console.log("\n=== API Schema Validation Results ===");
-      console.log(`Endpoint: ${this.apiEndpoint}`);
-      console.log(`Validation Status: ${isValid ? "✅ PASSED" : "❌ FAILED"}`);
-      console.log(`Total countries in response: ${this.responseData.length}`);
+      // Always log validation results, regardless of verbose setting
+      this.log("\n=== API Schema Validation Results ===", true);
+      this.log(`Endpoint: ${this.apiEndpoint}`, true);
+      this.log(
+        `Validation Status: ${isValid ? "✅ PASSED" : "❌ FAILED"}`,
+        true
+      );
+      this.log(
+        `Total countries in response: ${this.responseData.length}`,
+        true
+      );
 
       if (!isValid) {
-        console.log("\nValidation Errors:");
+        this.log("\nValidation Errors:", true);
         validate.errors.forEach((error) => {
-          console.log(`- ${error.message}`);
+          this.log(`- ${error.message}`, true);
         });
       }
 
-      console.log("===================================\n");
+      this.log("===================================\n", true);
     } catch (error) {
-      console.error("Error printing validation results:", error.message);
+      this.logError(`Error printing validation results: ${error.message}`);
       throw new Error(`Failed to print validation results: ${error.message}`);
     }
   }

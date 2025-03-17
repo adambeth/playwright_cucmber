@@ -27,11 +27,12 @@ Given("the countries API endpoint is available", async function () {
       throw new Error(`API endpoint returned status: ${healthCheck.status}`);
     }
 
-    console.log(
-      `Countries API endpoint is available: ${apiEndpoint} (Status: ${healthCheck.status})`
+    this.log(
+      `Countries API endpoint is available: ${apiEndpoint} (Status: ${healthCheck.status})`,
+      true // Force log this important message
     );
   } catch (error) {
-    console.error(`Countries API endpoint is not available: ${error.message}`);
+    this.logError(`Countries API endpoint is not available: ${error.message}`);
     throw new Error(
       `Countries API endpoint is not available: ${error.message}`
     );
@@ -48,6 +49,9 @@ Then(
     try {
       expect(this.response.status).toBe(expectedStatus);
     } catch (error) {
+      this.logError(
+        `Expected status ${expectedStatus} but got ${this.response.status}: ${error.message}`
+      );
       throw new Error(
         `Expected status ${expectedStatus} but got ${this.response.status}: ${error.message}`
       );
@@ -63,9 +67,9 @@ Then("the response should be valid JSON", async function () {
   try {
     this.responseData = await this.response.json();
     expect(() => JSON.parse(JSON.stringify(this.responseData))).not.toThrow();
-    console.log("Response is valid JSON");
+    this.log("Response is valid JSON");
   } catch (error) {
-    console.error("Invalid JSON response:", error.message);
+    this.logError(`Invalid JSON response: ${error.message}`);
     throw new Error(`Response is not valid JSON: ${error.message}`);
   }
 });

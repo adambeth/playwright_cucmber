@@ -1,12 +1,13 @@
 # SecuritEase
 
-A web automation testing framework built with Playwright and Cucumber for BBC Sport search functionality.
+A web automation testing framework built with Playwright and Cucumber for BBC Sport search functionality and API schema validation.
 
 ## 🚀 Technologies Used
 
 - [Playwright](https://playwright.dev/) - Modern end-to-end testing framework
 - [Cucumber](https://cucumber.io/) - Behavior-driven development (BDD) testing framework
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Programming language
+- [Ajv](https://ajv.js.org/) - JSON Schema validator for API testing
 - [Cursor](https://cursor.sh/) - AI-powered IDE for enhanced development experience
 - [Claude Sonnet](https://www.anthropic.com/claude) - AI assistant for code generation and review
 
@@ -51,15 +52,24 @@ To run specific feature:
 npm test -- --grep "@sport-search"
 ```
 
+To run API schema validation tests:
+
+```bash
+npm run test:api
+```
+
 ## 📁 Project Structure
 
 ```
 SecuritEase/
 ├── features/                    # Cucumber feature files
 │   ├── step_definitions/       # Step definitions
-│   └── sport_search.feature    # Sport search feature
+│   ├── support/                # Support files (hooks, world)
+│   ├── sport_search.feature    # Sport search feature
+│   └── api_schema_validation.feature # API schema validation feature
 ├── tests/
-│   └── pageObjects/           # Page Object Models
+│   ├── pageObjects/           # Page Object Models
+│   └── schemas/               # JSON Schema definitions
 ├── .github/                    # GitHub configurations
 │   └── pull_request_template.md # PR template
 └── package.json               # Project dependencies
@@ -91,4 +101,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - BBC Sport team for providing the test environment
 - Playwright team for the excellent testing framework
 - Cucumber team for BDD capabilities
+- Ajv team for JSON Schema validation
 - Cursor team for the AI-powered development experience

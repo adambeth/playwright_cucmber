@@ -1,0 +1,470 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/Welcome4Element"
+    },
+    "definitions": {
+        "Welcome4Element": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/Name"
+                },
+                "tld": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "cca2": {
+                    "type": "string"
+                },
+                "ccn3": {
+                    "type": "string"
+                },
+                "cca3": {
+                    "type": "string"
+                },
+                "independent": {
+                    "type": "boolean"
+                },
+                "status": {
+                    "$ref": "#/definitions/Status"
+                },
+                "unMember": {
+                    "type": "boolean"
+                },
+                "currencies": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Currency"
+                    }
+                },
+                "idd": {
+                    "$ref": "#/definitions/Idd"
+                },
+                "capital": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "altSpellings": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "region": {
+                    "$ref": "#/definitions/Region"
+                },
+                "languages": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "translations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Translation"
+                    }
+                },
+                "latlng": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "landlocked": {
+                    "type": "boolean"
+                },
+                "area": {
+                    "type": "number"
+                },
+                "demonyms": {
+                    "$ref": "#/definitions/Demonyms"
+                },
+                "flag": {
+                    "type": "string"
+                },
+                "maps": {
+                    "$ref": "#/definitions/Maps"
+                },
+                "population": {
+                    "type": "integer"
+                },
+                "car": {
+                    "$ref": "#/definitions/Car"
+                },
+                "timezones": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "continents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Continent"
+                    }
+                },
+                "flags": {
+                    "$ref": "#/definitions/Flags"
+                },
+                "coatOfArms": {
+                    "$ref": "#/definitions/CoatOfArms"
+                },
+                "startOfWeek": {
+                    "$ref": "#/definitions/StartOfWeek"
+                },
+                "capitalInfo": {
+                    "$ref": "#/definitions/CapitalInfo"
+                },
+                "cioc": {
+                    "type": "string"
+                },
+                "subregion": {
+                    "type": "string"
+                },
+                "fifa": {
+                    "type": "string"
+                },
+                "borders": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "gini": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number"
+                    }
+                },
+                "postalCode": {
+                    "$ref": "#/definitions/PostalCode"
+                }
+            },
+            "required": [
+                "altSpellings",
+                "area",
+                "capitalInfo",
+                "car",
+                "cca2",
+                "cca3",
+                "coatOfArms",
+                "continents",
+                "flag",
+                "flags",
+                "idd",
+                "landlocked",
+                "latlng",
+                "maps",
+                "name",
+                "population",
+                "region",
+                "startOfWeek",
+                "status",
+                "timezones",
+                "translations",
+                "unMember"
+            ],
+            "title": "Welcome4Element"
+        },
+        "CapitalInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "latlng": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            },
+            "required": [],
+            "title": "CapitalInfo"
+        },
+        "Car": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "signs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "side": {
+                    "$ref": "#/definitions/Side"
+                }
+            },
+            "required": [
+                "side"
+            ],
+            "title": "Car"
+        },
+        "CoatOfArms": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "png": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".png"
+                    ]
+                },
+                "svg": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".svg"
+                    ]
+                }
+            },
+            "required": [],
+            "title": "CoatOfArms"
+        },
+        "Currency": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "symbol": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "symbol"
+            ],
+            "title": "Currency"
+        },
+        "Demonyms": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "eng": {
+                    "$ref": "#/definitions/Eng"
+                },
+                "fra": {
+                    "$ref": "#/definitions/Eng"
+                }
+            },
+            "required": [
+                "eng"
+            ],
+            "title": "Demonyms"
+        },
+        "Eng": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "f": {
+                    "type": "string"
+                },
+                "m": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "f",
+                "m"
+            ],
+            "title": "Eng"
+        },
+        "Flags": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "png": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".png"
+                    ]
+                },
+                "svg": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".svg"
+                    ]
+                },
+                "alt": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "png",
+                "svg"
+            ],
+            "title": "Flags"
+        },
+        "Idd": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "root": {
+                    "type": "string"
+                },
+                "suffixes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Idd"
+        },
+        "Maps": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "googleMaps": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "openStreetMaps": {
+                    "type": "string",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                }
+            },
+            "required": [
+                "googleMaps",
+                "openStreetMaps"
+            ],
+            "title": "Maps"
+        },
+        "Name": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "common": {
+                    "type": "string"
+                },
+                "official": {
+                    "type": "string"
+                },
+                "nativeName": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Translation"
+                    }
+                }
+            },
+            "required": [
+                "common",
+                "official"
+            ],
+            "title": "Name"
+        },
+        "Translation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "official": {
+                    "type": "string"
+                },
+                "common": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "common",
+                "official"
+            ],
+            "title": "Translation"
+        },
+        "PostalCode": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "format": {
+                    "type": "string"
+                },
+                "regex": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "format"
+            ],
+            "title": "PostalCode"
+        },
+        "Side": {
+            "type": "string",
+            "enum": [
+                "right",
+                "left"
+            ],
+            "title": "Side"
+        },
+        "Continent": {
+            "type": "string",
+            "enum": [
+                "Antarctica",
+                "North America",
+                "Europe",
+                "Africa",
+                "Asia",
+                "Oceania",
+                "South America"
+            ],
+            "title": "Continent"
+        },
+        "Region": {
+            "type": "string",
+            "enum": [
+                "Antarctic",
+                "Americas",
+                "Europe",
+                "Africa",
+                "Asia",
+                "Oceania"
+            ],
+            "title": "Region"
+        },
+        "StartOfWeek": {
+            "type": "string",
+            "enum": [
+                "monday",
+                "sunday",
+                "saturday"
+            ],
+            "title": "StartOfWeek"
+        },
+        "Status": {
+            "type": "string",
+            "enum": [
+                "officially-assigned",
+                "user-assigned"
+            ],
+            "title": "Status"
+        }
+    }
+}

@@ -1,0 +1,344 @@
+[
+  {
+    "description": "  As a consumer of the API\n  I want to ensure that the data returned from the API conforms to published schema\n  so that my application can reliably consume and process the data returned",
+    "elements": [
+      {
+        "description": "",
+        "id": "api-schema-validation;validate-api-response-schema",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Validate API Response Schema",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the countries API endpoint is available",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 702496625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "I have the expected schema definition",
+            "match": {
+              "location": "features/step_definitions/api_schema_steps.js:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1406833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I send a GET request to the API endpoint",
+            "match": {
+              "location": "features/step_definitions/api_schema_steps.js:65"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1139263083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "the response status code should be 200",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1892750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "the response should be valid JSON",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 453280625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "the response should conform to the published schema",
+            "match": {
+              "location": "features/step_definitions/api_schema_steps.js:81"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38701750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "I should print the validation results in the test report",
+            "match": {
+              "location": "features/step_definitions/api_schema_steps.js:118"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13481667
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api-test",
+            "line": 10
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "api-schema-validation",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "API Schema Validation",
+    "tags": [],
+    "uri": "features/api_schema_validation.feature"
+  },
+  {
+    "description": "  As a map builder\n  I want to confirm that there are 195 countries in the world\n  So that my maps are accurate and reflect current geopolitical boundaries",
+    "elements": [
+      {
+        "description": "",
+        "id": "country-count-validation;validate-the-number-of-countries-in-the-world",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Validate the number of countries in the world",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the countries API endpoint is available",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 698899792
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 11,
+            "name": "I retrieve the list of all countries",
+            "match": {
+              "location": "features/step_definitions/country_count_steps.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 294698665
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "the countries API response status code should be 200",
+            "match": {
+              "location": "features/step_definitions/country_count_steps.js:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 415290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "the countries API response should be valid JSON",
+            "match": {
+              "location": "features/step_definitions/country_count_steps.js:185"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 658106125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I should verify the number of countries matches the expected count",
+            "match": {
+              "location": "features/step_definitions/country_count_steps.js:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1031833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "I should print the country count results in the test report",
+            "match": {
+              "location": "features/step_definitions/country_count_steps.js:86"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 605958
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api-test",
+            "line": 9
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "country-count-validation",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Country Count Validation",
+    "tags": [],
+    "uri": "features/country_count_validation.feature"
+  },
+  {
+    "description": "  As the Minister of Education\n  I want to ensure that South African Sign Language (SASL) is included in the list of South Africa's official languages\n  So that it is properly integrated into educational curricula and recognized in educational policies",
+    "elements": [
+      {
+        "description": "",
+        "id": "south-africa-official-languages-validation;validate-south-african-sign-language-(sasl)-is-recognized-as-an-official-language",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Validate South African Sign Language (SASL) is recognized as an official language",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the countries API endpoint is available",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 662264124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 11,
+            "name": "I retrieve information about South Africa from the API",
+            "match": {
+              "location": "features/step_definitions/south_africa_languages_steps.js:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 219010582
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "the response status code should be 200",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 767625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "the response should be valid JSON",
+            "match": {
+              "location": "features/step_definitions/common_api_steps.js:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1402707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I should verify South Africa's official languages",
+            "match": {
+              "location": "features/step_definitions/south_africa_languages_steps.js:51"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1279791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "I should check if South African Sign Language is included in the list",
+            "match": {
+              "location": "features/step_definitions/south_africa_languages_steps.js:98"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 260957,
+              "error_message": "Error: Test failed: South African Sign Language (SASL) is not included in the official languages. This is a critical requirement for inclusive education policies.\n    at CustomWorld.<anonymous> (/Users/adambethlehem/playwright_cucmber/features/step_definitions/south_africa_languages_steps.js:136:15)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "I should print the language validation results in the test report",
+            "match": {
+              "location": "features/step_definitions/south_africa_languages_steps.js:148"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api-test",
+            "line": 9
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "south-africa-official-languages-validation",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "South Africa Official Languages Validation",
+    "tags": [],
+    "uri": "features/south_africa_languages.feature"
+  }
+]

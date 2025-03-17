@@ -4,14 +4,15 @@
   "main": "index.js",
   "scripts": {
     "test:cucumber": "cucumber-js",
-    "test:api": "cucumber-js --tags @api-test",
-    "test:api:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test",
-    "test:countries": "cucumber-js --tags @api-test --name 'Validate the number of countries'",
-    "test:countries:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --name 'Validate the number of countries'",
-    "test:schema": "cucumber-js --tags @api-test --name 'Validate API Response Schema'",
-    "test:schema:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --name 'Validate API Response Schema'",
-    "test:languages": "cucumber-js --tags @api-test --name 'Validate South African Sign Language'",
-    "test:languages:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --name 'Validate South African Sign Language'"
+    "test:api": "cucumber-js --tags @api-test --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:api:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:countries": "cucumber-js --tags @api-test --name 'Validate the number of countries' --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:countries:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --name 'Validate the number of countries' --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:schema": "cucumber-js --tags @api-test --name 'Validate API Response Schema' --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:schema:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --name 'Validate API Response Schema' --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:languages": "cucumber-js --tags @api-test --name 'Validate South African Sign Language' --format json:cucumber_report.json && node cucumber-html-report.js",
+    "test:languages:quiet": "VERBOSE_LOGGING=false cucumber-js --tags @api-test --name 'Validate South African Sign Language' --format json:cucumber_report.json && node cucumber-html-report.js",
+    "report:html": "node cucumber-html-report.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,10 @@
   "description": "",
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
-    "@playwright/test": "^1.51.0"
+    "@cucumber/pretty-formatter": "^1.0.1",
+    "@playwright/test": "^1.51.0",
+    "cucumber-html-reporter": "^7.1.1",
+    "multiple-cucumber-html-reporter": "^3.6.1"
   },
   "dependencies": {
     "ajv": "^8.17.1"

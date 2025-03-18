@@ -155,3 +155,23 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Cucumber team for BDD capabilities
 - Ajv team for JSON Schema validation
 - Cursor team for the AI-powered development experience
+
+## GitHub Actions and Report Deployment
+
+This project includes a GitHub Actions workflow that automatically:
+
+- Runs all API tests on every push and pull request
+- Generates Cucumber HTML reports
+- Deploys the latest report to GitHub Pages (only on merges to master)
+
+### Accessing Reports
+
+The latest test report is available at: `https://[your-github-username].github.io/[repository-name]/cucumber-report.html`
+
+### Local Development
+
+For local development, you can still generate and view reports using:
+
+```bash
+npm run test:api:html-report
+```

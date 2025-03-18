@@ -19,7 +19,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 702496625
+              "duration": 796420749
             }
           },
           {
@@ -32,7 +32,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1406833
+              "duration": 731833
             }
           },
           {
@@ -45,7 +45,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1139263083
+              "duration": 1235737250
             }
           },
           {
@@ -58,7 +58,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1892750
+              "duration": 3388124
             }
           },
           {
@@ -71,7 +71,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 453280625
+              "duration": 464581958
             }
           },
           {
@@ -84,7 +84,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 38701750
+              "duration": 37692042
             }
           },
           {
@@ -97,7 +97,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 13481667
+              "duration": 13157499
             }
           }
         ],
@@ -137,7 +137,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 698899792
+              "duration": 672838874
             }
           },
           {
@@ -150,7 +150,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 294698665
+              "duration": 355829333
             }
           },
           {
@@ -163,7 +163,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 415290
+              "duration": 1042374
             }
           },
           {
@@ -176,7 +176,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 658106125
+              "duration": 682045166
             }
           },
           {
@@ -189,7 +189,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1031833
+              "duration": 848791
             }
           },
           {
@@ -202,7 +202,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 605958
+              "duration": 805624
             }
           }
         ],
@@ -242,7 +242,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 662264124
+              "duration": 828931166
             }
           },
           {
@@ -255,7 +255,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 219010582
+              "duration": 226772624
             }
           },
           {
@@ -268,7 +268,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 767625
+              "duration": 1195834
             }
           },
           {
@@ -281,7 +281,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1402707
+              "duration": 1522500
             }
           },
           {
@@ -294,7 +294,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1279791
+              "duration": 1915582
             }
           },
           {
@@ -307,7 +307,7 @@
             },
             "result": {
               "status": "failed",
-              "duration": 260957,
+              "duration": 431749,
               "error_message": "Error: Test failed: South African Sign Language (SASL) is not included in the official languages. This is a critical requirement for inclusive education policies.\n    at CustomWorld.<anonymous> (/Users/adambethlehem/playwright_cucmber/features/step_definitions/south_africa_languages_steps.js:136:15)"
             }
           },

@@ -23,7 +23,7 @@ const options = {
   output: path.join(__dirname, "reports/cucumber-report.html"),
   reportSuiteAsScenarios: true,
   scenarioTimestamp: true,
-  launchReport: true,
+  launchReport: false,
   metadata: {
     "App Version": "1.0.0",
     "Test Environment": "Test",
@@ -34,8 +34,31 @@ const options = {
   failedSummaryReport: true,
 };
 
+// Get the absolute path to the report
+const reportPath = path.resolve(options.output);
+const fileUrl = `file://${reportPath}`;
+
+// Print a message before generating the report
+console.log("\n\n🚀 Generating Cucumber HTML report...");
+
 // Generate the report
 reporter.generate(options);
 
-console.log("Cucumber HTML report generated successfully!");
-console.log(`Report is available at: ${path.resolve(options.output)}`);
+// Create a visually distinct report link message
+console.log("\n\n");
+console.log(
+  "╔═════════════════════════════════════════════════════════════════════════════════╗"
+);
+console.log(
+  "║                           CUCUMBER HTML REPORT                                  ║"
+);
+console.log(
+  "╚═════════════════════════════════════════════════════════════════════════════════╝"
+);
+console.log("\n✅ Cucumber HTML report generated successfully!");
+console.log(`\n📊 Report location: ${reportPath}`);
+console.log(`\n🔗 Click to open: ${fileUrl}`);
+console.log("\n💻 Or run: npm run report:open");
+console.log(
+  "\n═════════════════════════════════════════════════════════════════════════════════\n"
+);

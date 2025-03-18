@@ -66,6 +66,18 @@ jobs:
           name: cucumber-report
           path: _site
 
+      - name: Create index.html with redirect
+        run: |
+          echo '<!DOCTYPE html>
+          <html>
+            <head>
+              <meta http-equiv="refresh" content="0; url=./cucumber-report.html">
+            </head>
+            <body>
+              <p>Redirecting to <a href="./cucumber-report.html">Cucumber Report</a>...</p>
+            </body>
+          </html>' > _site/index.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

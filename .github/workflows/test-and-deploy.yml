@@ -1,4 +1,4 @@
-name: Test and Deploy Report
+name: Run Cucumber Tests
 
 on:
   push:
@@ -46,66 +46,3 @@ jobs:
           name: cucumber-report
           path: reports/cucumber-report.html
           retention-days: 30
-
-  deploy:
-    needs: test-and-report
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/workflow'
-
-    # Allow GITHUB_TOKEN to deploy to GitHub Pages
-    permissions:
-      pages: write
-      id-token: write
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Create _site directory
-        run: mkdir -p _site
-
-      - name: Download report artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: cucumber-report
-          path: _site
-
-      - name: List _site contents
-        run: ls -la _site/
-
-      - name: Create index.html with redirect
-        run: |
-          cat > _site/index.html << 'EOL'
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Cucumber Test Report</title>
-              <meta http-equiv="refresh" content="0; url=cucumber-report.html">
-            </head>
-            <body>
-              <h1>Cucumber Test Report</h1>
-              <p>If you are not redirected automatically, click <a href="cucumber-report.html">here</a> to view the report.</p>
-            </body>
-          </html>
-          EOL
-
-      - name: List final _site contents
-        run: |
-          echo "Contents of _site directory:"
-          ls -la _site/
-          echo "Content of index.html:"
-          cat _site/index.html
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "_site"
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

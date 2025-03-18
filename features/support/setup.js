@@ -1,3 +1,10 @@
+// This setup.js file is used to configure the test environment for Cucumber.js tests.
+// It manages the lifecycle of the Playwright browser for UI tests and sets up global hooks.
+// - `BeforeAll` and `AfterAll` hooks are used to launch and close the browser.
+// - `Before` and `After` hooks manage browser context and page for each UI test scenario.
+// - The file also checks for `@api-test` tags to skip browser initialization for API-only tests.
+// - Default timeout for steps is set to 30 seconds.
+
 const {
   Before,
   After,

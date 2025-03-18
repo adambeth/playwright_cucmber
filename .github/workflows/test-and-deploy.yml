@@ -48,22 +48,32 @@ jobs:
     needs: test-and-report
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/workflow'
+
+    # Allow GITHUB_TOKEN to deploy to GitHub Pages
     permissions:
-      contents: write
       pages: write
+      id-token: write
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Download report artifact
         uses: actions/download-artifact@v4
         with:
           name: cucumber-report
-          path: docs
+          path: _site
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          enable_jekyll: false
-          keep_files: false
-          commit_message: "docs: update cucumber test report [skip ci]"
+        id: deployment
+        uses: actions/deploy-pages@v4

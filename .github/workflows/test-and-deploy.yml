@@ -37,11 +37,14 @@ jobs:
         run: npm run test:ci
         continue-on-error: true
 
+      - name: List reports directory
+        run: ls -la reports/
+
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-report
-          path: reports/
+          path: reports/cucumber-report.html
           retention-days: 30
 
   deploy:
@@ -60,23 +63,40 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Create _site directory
+        run: mkdir -p _site
+
       - name: Download report artifact
         uses: actions/download-artifact@v4
         with:
           name: cucumber-report
           path: _site
 
+      - name: List _site contents
+        run: ls -la _site/
+
       - name: Create index.html with redirect
         run: |
-          echo '<!DOCTYPE html>
+          cat > _site/index.html << 'EOL'
+          <!DOCTYPE html>
           <html>
             <head>
-              <meta http-equiv="refresh" content="0; url=./cucumber-report.html">
+              <title>Cucumber Test Report</title>
+              <meta http-equiv="refresh" content="0; url=cucumber-report.html">
             </head>
             <body>
-              <p>Redirecting to <a href="./cucumber-report.html">Cucumber Report</a>...</p>
+              <h1>Cucumber Test Report</h1>
+              <p>If you are not redirected automatically, click <a href="cucumber-report.html">here</a> to view the report.</p>
             </body>
-          </html>' > _site/index.html
+          </html>
+          EOL
+
+      - name: List final _site contents
+        run: |
+          echo "Contents of _site directory:"
+          ls -la _site/
+          echo "Content of index.html:"
+          cat _site/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

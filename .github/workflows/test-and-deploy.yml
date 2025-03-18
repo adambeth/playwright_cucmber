@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-      - workflow # Include both main and master for flexibility
+      - master
+      - workflow
   pull_request:
     branches:
       - main
@@ -46,7 +47,7 @@ jobs:
   deploy:
     needs: test-and-report
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/workflow'
     permissions:
       contents: write
       pages: write

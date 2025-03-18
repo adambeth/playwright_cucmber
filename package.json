@@ -13,7 +13,8 @@
     "test:languages": "node run-cucumber.js --tags @api-test --name 'Validate South African Sign Language'",
     "test:languages:quiet": "VERBOSE_LOGGING=false node run-cucumber.js --tags @api-test --name 'Validate South African Sign Language'",
     "report:html": "node cucumber-html-report.js",
-    "report:open": "open reports/cucumber-report.html"
+    "report:open": "open reports/cucumber-report.html",
+    "test:ci": "OPEN_REPORT=false node run-cucumber.js --tags @api-test"
   },
   "repository": {
     "type": "git",

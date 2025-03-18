@@ -22,9 +22,13 @@ try {
   // Run the report generator
   require("./cucumber-html-report");
 
-  // Open the report
-  console.log("\nOpening report...");
-  execSync("npm run report:open", { stdio: "inherit" });
+  // Only open the report if OPEN_REPORT is not set to false
+  if (process.env.OPEN_REPORT !== "false") {
+    console.log("\nOpening report...");
+    execSync("npm run report:open", { stdio: "inherit" });
+  } else {
+    console.log("\nSkipping report opening (OPEN_REPORT=false)");
+  }
 } catch (error) {
   console.error("Error generating or opening report:", error);
 }

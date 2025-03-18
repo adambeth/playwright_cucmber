@@ -33,7 +33,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run tests and generate report
-        run: npm run test:cucumber
+        run: npm run test:ci
 
       - name: Upload report artifact
         uses: actions/upload-artifact@v4

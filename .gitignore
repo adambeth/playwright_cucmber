@@ -3,9 +3,12 @@ node_modules
 
 # Cucumber reporting files
 reports/
-*.html
+reports/cucumber-report/
+reports/cucumber-report.html
+reports/cucumber-report/*.html
 cucumber_report.json
 cucumber_report_compatible.json
+**/cucumber-report/**/*.json
 
 # IDE and editor files
 .idea/

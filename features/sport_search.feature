@@ -3,7 +3,7 @@ Feature: Sport Search Results
   As an editor
   I want the search functionality to return at least 4 relevant results for "Sport in 2023"
   So that users have a wide range of articles, reports, and media to explore on the topic
-
+  @ui-test
   Scenario: Search for "Sport in 2023" returns minimum required results
     Given I am on the search page
     When I enter "Sport in 2023" in the search field

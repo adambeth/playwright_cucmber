@@ -1,6 +1,6 @@
-# SecuritEase
+# Playwright Cucumber Framework
 
-A web automation testing framework built with Playwright and Cucumber for BBC Sport search functionality and API schema validation.
+A web automation testing framework built with Playwright and Cucumber for BBC Sport search functionality, F1 results validation, and API schema validation.
 
 ## 🚀 Technologies Used
 
@@ -8,8 +8,7 @@ A web automation testing framework built with Playwright and Cucumber for BBC Sp
 - [Cucumber](https://cucumber.io/) - Behavior-driven development (BDD) testing framework
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Programming language
 - [Ajv](https://ajv.js.org/) - JSON Schema validator for API testing
-- [Cursor](https://cursor.sh/) - AI-powered IDE for enhanced development experience
-- [Claude Sonnet](https://www.anthropic.com/claude) - AI assistant for code generation and review
+- [Multiple Cucumber HTML Reporter](https://github.com/wswebcreation/multiple-cucumber-html-reporter) - Enhanced HTML report generation
 - [Cucumber HTML Reporter](https://github.com/gkushang/cucumber-html-reporter) - HTML report generation for Cucumber tests
 
 ## 📋 Prerequisites
@@ -23,8 +22,8 @@ A web automation testing framework built with Playwright and Cucumber for BBC Sp
 1. Clone the repository:
 
 ```bash
-git clone [your-repository-url]
-cd SecuritEase
+git clone https://github.com/adambeth/playwright_cucmber.git
+cd playwright_cucmber
 ```
 
 2. Install dependencies:
@@ -41,53 +40,72 @@ npx playwright install
 
 ## 🧪 Running Tests
 
+### UI Tests
+
 To run all tests:
 
 ```bash
-npm test
+npm run test:cucumber
 ```
 
-To run specific feature:
+To run tests without opening the report:
 
 ```bash
-npm test -- --grep "@sport-search"
+npm run test:cucumber:no-open
 ```
 
-To run API schema validation tests with HTML reporting:
+### API Tests
+
+Run all API tests with HTML reporting:
 
 ```bash
 npm run test:api
 ```
 
-To run specific API tests with HTML reporting:
-
-```bash
-npm run test:schema      # Run API schema validation tests
-npm run test:countries   # Run country count validation tests
-npm run test:languages   # Run South Africa languages validation tests
-```
-
-For quieter console output (with HTML reporting):
+Run API tests with minimal console output:
 
 ```bash
 npm run test:api:quiet
-npm run test:schema:quiet
-npm run test:countries:quiet
-npm run test:languages:quiet
+```
+
+### Specific Feature Tests
+
+Country count validation tests:
+
+```bash
+npm run test:countries
+npm run test:countries:quiet  # For minimal console output
+```
+
+API schema validation tests:
+
+```bash
+npm run test:schema
+npm run test:schema:quiet    # For minimal console output
+```
+
+South Africa languages validation tests:
+
+```bash
+npm run test:languages
+npm run test:languages:quiet # For minimal console output
 ```
 
 ## 📊 Test Reporting
 
-The framework includes built-in HTML reporting for all test runs:
+### Available Report Commands
 
-### Automatic HTML Reports
+Generate HTML report from existing JSON:
 
-All test commands automatically generate HTML reports. When you run any test command (e.g., `npm run test:api`), the framework will:
+```bash
+npm run report:html
+```
 
-1. Execute the Cucumber tests
-2. Generate a JSON report (`cucumber_report.json`)
-3. Create an HTML report from the JSON data
-4. Automatically open the HTML report in your default browser
+Open the HTML report:
+
+```bash
+npm run report:open
+```
 
 ### Report Features
 
@@ -100,100 +118,41 @@ The HTML reports include:
 - Failure screenshots (for UI tests)
 - Expandable/collapsible sections for easy navigation
 
-### Generating Reports Manually
+### GitHub Pages Integration
 
-If you have an existing JSON report file, you can generate the HTML report without running tests:
-
-```bash
-npm run report:html
-```
-
-The HTML report will be available at: `reports/cucumber-report.html`
-
-## Test Reports
-
-After each test run on the main branch, a detailed HTML report is automatically generated and deployed to GitHub Pages. The report includes:
-
-- Overall test execution summary
-- Detailed scenario results
-- Step-by-step execution details
-- Failure information and screenshots (for UI tests)
-- Execution time and metadata
-
-### Accessing Reports
-
-The latest test report is always available at:
+After each test run on the main branch, a detailed HTML report is automatically deployed to GitHub Pages at:
 [https://adambeth.github.io/playwright_cucmber/cucumber-report.html](https://adambeth.github.io/playwright_cucmber/cucumber-report.html)
-
-The report provides:
-
-- Total number of scenarios executed
-- Pass/fail statistics
-- Detailed error messages for failed steps
-- Test execution time
-- Environment information
-
-### Local Report Generation
-
-When running tests locally, reports are generated in the `reports` directory:
-
-```bash
-# Run tests and generate report
-npm run test:cucumber
-
-# Run tests without opening report automatically
-npm run test:cucumber:no-open
-```
 
 ## 📁 Project Structure
 
 ```
-SecuritEase/
+playwright_cucmber/
 ├── features/                    # Cucumber feature files
 │   ├── step_definitions/       # Step definitions
-│   ├── support/                # Support files (hooks, world)
-│   ├── sport_search.feature    # Sport search feature
-│   └── api_schema_validation.feature # API schema validation feature
+│   ├── support/               # Support files (hooks, world)
+│   ├── sport_search.feature   # Sport search feature
+│   ├── f1_results.feature    # F1 results validation
+│   ├── api_schema_validation.feature # API schema validation
+│   ├── south_africa_languages.feature # Language validation
+│   └── country_count_validation.feature # Country count validation
 ├── tests/
-│   ├── pageObjects/           # Page Object Models
-│   └── schemas/               # JSON Schema definitions
-├── .github/                    # GitHub configurations
-│   └── pull_request_template.md # PR template
-└── package.json               # Project dependencies
+│   ├── pageObjects/          # Page Object Models
+│   └── schemas/              # JSON Schema definitions
+├── .github/                  # GitHub configurations
+│   └── workflows/           # GitHub Actions workflows
+├── cucumber.js              # Cucumber configuration
+├── cucumber-html-report.js  # HTML report configuration
+├── cucumber-report-generator.js # Report generator script
+├── playwright.config.js     # Playwright configuration
+├── run-cucumber.js         # Test runner script
+├── docker-compose.yml      # Docker compose configuration
+├── Dockerfile             # Docker configuration
+└── package.json          # Project dependencies
 ```
-
-## 🤖 AI Development Tools
-
-This project leverages AI-powered development tools to enhance productivity:
-
-- **Cursor**: Used for intelligent code completion, refactoring, and debugging
-- **Claude Sonnet**: Assists with code generation, review, and documentation
-
-## 📝 Contributing
-
-1. Create a new branch for your feature
-2. Make your changes
-3. Submit a pull request using the provided template
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Authors
-
-- Adam Bethlehem - Initial work
-
-## 🙏 Acknowledgments
-
-- BBC Sport team for providing the test environment
-- Playwright team for the excellent testing framework
-- Cucumber team for BDD capabilities
-- Ajv team for JSON Schema validation
-- Cursor team for the AI-powered development experience
 
 ## 🐳 Docker Support
 
-You can run the tests in a Docker container, which ensures a consistent environment across different machines.
+You can run the tests in a Docker container for a consistent environment across different machines.
 
 ### Prerequisites
 
@@ -202,7 +161,7 @@ You can run the tests in a Docker container, which ensures a consistent environm
 
 ### Running Tests with Docker
 
-1. Build and run tests using Docker Compose:
+1. Build and run tests:
 
 ```bash
 docker-compose up --build
@@ -212,11 +171,6 @@ docker-compose up --build
 
 ```bash
 docker-compose run test npm run test:api
-```
-
-3. Run with different commands:
-
-```bash
 docker-compose run test npm run test:schema
 docker-compose run test npm run test:countries
 docker-compose run test npm run test:languages
@@ -230,17 +184,36 @@ The Docker setup includes volume mounts for:
 - `./features`: Live updates to feature files
 - `./tests`: Live updates to test implementations
 
-This allows you to modify tests without rebuilding the container.
-
 ### Docker Environment Variables
 
-The following environment variables are set in the container:
+Default environment variables:
 
 - `CI=true`: Indicates running in CI environment
 - `NODE_ENV=test`: Sets Node environment to test
 
-You can override these in the `docker-compose.yml` file or via command line:
+Override via command line:
 
 ```bash
 docker-compose run -e NODE_ENV=development test npm run test:cucumber
 ```
+
+## 📝 Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Submit a pull request using the provided template
+
+## 📄 License
+
+This project is licensed under the ISC License - see the LICENSE file for details.
+
+## 👥 Author
+
+- Adam Bethlehem - Initial work
+
+## 🙏 Acknowledgments
+
+- BBC Sport team for providing the test environment
+- Playwright team for the excellent testing framework
+- Cucumber team for BDD capabilities
+- Ajv team for JSON Schema validation

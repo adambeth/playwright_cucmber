@@ -170,10 +170,10 @@ docker-compose up --build
 2. Run specific test scenarios:
 
 ```bash
-docker-compose run test npm run test:api
-docker-compose run test npm run test:schema
-docker-compose run test npm run test:countries
-docker-compose run test npm run test:languages
+docker compose run test npm run test:api
+docker compose run test npm run test:schema
+docker compose run test npm run test:countries
+docker compose run test npm run test:languages
 ```
 
 ### Development with Docker

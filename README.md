@@ -168,12 +168,13 @@ docker-compose up --build
 ```
 
 2. Run specific test scenarios:
+   Test inside the docker container need to be run with the no-open scripts
 
 ```bash
-docker-compose run test npm run test:api
-docker-compose run test npm run test:schema
-docker-compose run test npm run test:countries
-docker-compose run test npm run test:languages
+docker compose run test npm run test:api:no-open
+docker compose run test npm run test:schema:no-open
+docker compose run test npm run test:countries:no-open
+docker compose run test npm run test:languages:no-open
 ```
 
 ### Development with Docker

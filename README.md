@@ -210,6 +210,13 @@ Override via command line:
 docker-compose run -e NODE_ENV=development test npm run test:cucumber
 ```
 
+## 🤖 AI Development Tools
+
+This project leverages AI-powered development tools to enhance productivity and code quality:
+
+- [Cursor](https://cursor.sh/) - AI-powered IDE used for intelligent code completion, refactoring, and debugging
+- [Claude](https://anthropic.com/claude) - AI assistant used for code generation, review, and documentation
+
 ## 📝 Contributing
 
 1. Create a new branch for your feature

@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mount reports directory to access test results
+      - ./reports:/app/reports
+      # Mount test files for live updates during development
+      - ./features:/app/features
+      - ./tests:/app/tests
+    environment:
+      - CI=true
+      - NODE_ENV=test
+    command: npm run test:cucumber:no-open

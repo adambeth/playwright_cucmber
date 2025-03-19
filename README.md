@@ -190,3 +190,57 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Cucumber team for BDD capabilities
 - Ajv team for JSON Schema validation
 - Cursor team for the AI-powered development experience
+
+## 🐳 Docker Support
+
+You can run the tests in a Docker container, which ensures a consistent environment across different machines.
+
+### Prerequisites
+
+- Docker
+- Docker Compose
+
+### Running Tests with Docker
+
+1. Build and run tests using Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+2. Run specific test scenarios:
+
+```bash
+docker-compose run test npm run test:api
+```
+
+3. Run with different commands:
+
+```bash
+docker-compose run test npm run test:schema
+docker-compose run test npm run test:countries
+docker-compose run test npm run test:languages
+```
+
+### Development with Docker
+
+The Docker setup includes volume mounts for:
+
+- `./reports`: Access test reports from your host machine
+- `./features`: Live updates to feature files
+- `./tests`: Live updates to test implementations
+
+This allows you to modify tests without rebuilding the container.
+
+### Docker Environment Variables
+
+The following environment variables are set in the container:
+
+- `CI=true`: Indicates running in CI environment
+- `NODE_ENV=test`: Sets Node environment to test
+
+You can override these in the `docker-compose.yml` file or via command line:
+
+```bash
+docker-compose run -e NODE_ENV=development test npm run test:cucumber
+```

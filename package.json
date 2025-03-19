@@ -6,6 +6,7 @@
     "test:cucumber": "node run-cucumber.js",
     "test:cucumber:no-open": "node run-cucumber.js --no-open",
     "test:api": "node run-cucumber.js --tags @api-test",
+    "test:ui": "node run-cucumber.js --tags @ui-test",
     "test:api:quiet": "VERBOSE_LOGGING=false node run-cucumber.js --tags @api-test",
     "test:countries": "node run-cucumber.js --tags @api-test --name 'Validate the number of countries'",
     "test:countries:quiet": "VERBOSE_LOGGING=false node run-cucumber.js --tags @api-test --name 'Validate the number of countries'",

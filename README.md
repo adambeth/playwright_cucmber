@@ -40,8 +40,6 @@ npx playwright install
 
 ## 🧪 Running Tests
 
-### UI Tests
-
 To run all tests:
 
 ```bash
@@ -52,6 +50,20 @@ To run tests without opening the report:
 
 ```bash
 npm run test:cucumber:no-open
+```
+
+### UI Tests
+
+To run all UI tests:
+
+```bash
+npm run test:ui
+```
+
+To run all UI tests without opening the report:
+
+```bash
+npm run test:ui:no-open
 ```
 
 ### API Tests

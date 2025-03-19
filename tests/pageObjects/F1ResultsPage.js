@@ -4,14 +4,17 @@ class F1ResultsPage extends BasePage {
   constructor(page) {
     super(page);
 
-    this.selectors = {
-      raceTitle: ".race-title",
-      resultsTable: ".results-table",
-      raceSelector: ".race-selector",
-      positionColumn: ".position",
-      driverNameColumn: ".driver-name",
-      teamColumn: ".team",
-    };
+    // Initialize locators directly
+    this.raceTitle = page.locator(".race-title");
+    this.resultsTable = page.locator(".results-table");
+    this.raceSelector = page.locator(".race-selector");
+    this.positionColumn = page.locator(".position");
+    this.driverNameColumn = page.locator(".driver-name");
+    this.teamColumn = page.locator(".team");
+
+    // Method to get race section locator for a specific race
+    this.getRaceSectionLocator = (raceButton) =>
+      raceButton.locator("xpath=./ancestor::section");
   }
 
   async goto(year = "2023") {
@@ -27,8 +30,8 @@ class F1ResultsPage extends BasePage {
     // Click the button to expand the section if it's not already expanded
     await raceButton.click();
 
-    // Find the entire section that contains this button (traversing up the DOM)
-    const raceSection = raceButton.locator("xpath=./ancestor::section");
+    // Find the entire section that contains this button using the constructor method
+    const raceSection = this.getRaceSectionLocator(raceButton);
 
     // Wait for the section to be fully loaded
     await this.page.waitForTimeout(1000);
@@ -47,9 +50,8 @@ class F1ResultsPage extends BasePage {
     const raceButton = this.page.getByRole("button", {
       name: new RegExp(raceName, "i"),
     });
-    // Find the entire section that contains this button
-    const raceSection = raceButton.locator("xpath=./ancestor::section");
-    return raceSection;
+    // Find the entire section that contains this button using the constructor method
+    return this.getRaceSectionLocator(raceButton);
   }
 
   async getRaceResults() {
@@ -84,7 +86,7 @@ class F1ResultsPage extends BasePage {
   }
 
   async getRaceTitle() {
-    return await this.getText(this.selectors.raceTitle);
+    return await this.getText(this.raceTitle);
   }
 
   /**

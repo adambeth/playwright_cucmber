@@ -1,14 +1,16 @@
 node_modules
 .DS_Store
 
-# Cucumber reporting files
-reports/
-reports/cucumber-report/
-reports/cucumber-report.html
-reports/cucumber-report/*.html
+# Test reports and results
+reports/**/*
+test-results/**/*
+playwright-report/**/*
+
+# Cucumber specific reports
 cucumber_report.json
 cucumber_report_compatible.json
-**/cucumber-report/**/*.json
+**/cucumber-report/**
+**/cucumber-report.html
 
 # IDE and editor files
 .idea/

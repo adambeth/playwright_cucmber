@@ -1,5 +1,5 @@
 {
-  "name": "ts",
+  "name": "playwright-cucumber",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -18,24 +18,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adambeth/ts.git"
+    "url": "git+https://github.com/adambeth/playwright_cucmber.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Adam Bethlehem",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adambeth/ts/issues"
+    "url": "https://github.com/adambeth/playwright_cucmber/issues"
   },
-  "homepage": "https://github.com/adambeth/ts#readme",
+  "homepage": "https://github.com/adambeth/playwright_cucmber#readme",
   "description": "",
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
     "@cucumber/pretty-formatter": "^1.0.1",
     "@playwright/test": "^1.51.0",
-    "cucumber-html-reporter": "^7.1.1",
-    "multiple-cucumber-html-reporter": "^3.6.1"
+    "ajv": "^8.17.1"
   },
   "dependencies": {
-    "ajv": "^8.17.1"
+    "cucumber-html-reporter": "^7.1.1",
+    "multiple-cucumber-html-reporter": "^3.6.1"
   }
 }

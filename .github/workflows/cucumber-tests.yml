@@ -2,13 +2,19 @@ name: Cucumber Tests
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
 
 jobs:
-  test:
+  test-cucumber:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -36,3 +42,22 @@ jobs:
       - name: Run Cucumber tests
         run: npm run test:cucumber:no-open
         continue-on-error: true
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Create _site directory
+        run: |
+          mkdir -p _site
+          cp -r reports/* _site/
+          echo '<meta http-equiv="refresh" content="0; url=cucumber-report.html">' > _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        if: github.ref == 'refs/heads/main'
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

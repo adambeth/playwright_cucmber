@@ -110,6 +110,41 @@ npm run report:html
 
 The HTML report will be available at: `reports/cucumber-report.html`
 
+## Test Reports
+
+After each test run on the main branch, a detailed HTML report is automatically generated and deployed to GitHub Pages. The report includes:
+
+- Overall test execution summary
+- Detailed scenario results
+- Step-by-step execution details
+- Failure information and screenshots (for UI tests)
+- Execution time and metadata
+
+### Accessing Reports
+
+The latest test report is always available at:
+[https://adambeth.github.io/playwright_cucmber/cucumber-report.html](https://adambeth.github.io/playwright_cucmber/cucumber-report.html)
+
+The report provides:
+
+- Total number of scenarios executed
+- Pass/fail statistics
+- Detailed error messages for failed steps
+- Test execution time
+- Environment information
+
+### Local Report Generation
+
+When running tests locally, reports are generated in the `reports` directory:
+
+```bash
+# Run tests and generate report
+npm run test:cucumber
+
+# Run tests without opening report automatically
+npm run test:cucumber:no-open
+```
+
 ## 📁 Project Structure
 
 ```

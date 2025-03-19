@@ -2,12 +2,14 @@ name: Cucumber Tests
 
 on:
   push:
-    branches: [main, cucumber-report-host]
+    branches:
+      - main
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
 
 jobs:
-  test:
+  test-cucumber:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -55,7 +57,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/cucumber-report-host'
+        if: github.ref == 'refs/heads/main'
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

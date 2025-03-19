@@ -19,7 +19,6 @@ class F1ResultsPage extends BasePage {
   }
 
   async selectRace(raceName) {
-    console.log(raceName);
     // First find the button with the race name
     const raceButton = this.page.getByRole("button", {
       name: new RegExp(raceName, "i"),
@@ -48,10 +47,8 @@ class F1ResultsPage extends BasePage {
     const raceButton = this.page.getByRole("button", {
       name: new RegExp(raceName, "i"),
     });
-    console.log(raceButton);
     // Find the entire section that contains this button
     const raceSection = raceButton.locator("xpath=./ancestor::section");
-    console.log(raceSection);
     return raceSection;
   }
 
@@ -69,6 +66,7 @@ class F1ResultsPage extends BasePage {
       // Get top 3 results using the proper selectors from the BBC F1 page
       const positionCell = row.locator("td").nth(0);
       const driverCell = row.locator("td").nth(1);
+      //not the best locator, but it works, would add a custom test-id to the team cell for better locator strategy
       const teamCell = driverCell.locator(".ssrcss-qo0qz1-TeamFullName");
 
       results.push({

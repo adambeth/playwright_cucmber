@@ -13,7 +13,6 @@ When("I view the {string} race results", async function (raceName) {
 });
 
 Then("I should see the following race results:", async function (dataTable) {
-  console.log(dataTable);
   const expectedResults = dataTable.hashes();
   // Get the actual race results
   const actualResults = await this.f1Page.getRaceResults();
@@ -22,7 +21,7 @@ Then("I should see the following race results:", async function (dataTable) {
   // Only verify as many results as we have in the expected data
   for (
     let i = 0;
-    // index out of bounds save guards
+    // index out of bounds safe guards
     i < Math.min(expectedResults.length, actualResults.length);
     i++
   ) {

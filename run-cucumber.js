@@ -5,13 +5,17 @@ const { execSync } = require("child_process");
 // Get all command line arguments after the script name
 const args = process.argv.slice(2);
 
-// Build the cucumber command with the provided arguments
-const cucumberArgs = ["--format", "json:cucumber_report.json", ...args];
+// Check if --no-open flag is present and remove it from args if it is
+const noOpen = args.includes("--no-open");
+const cucumberArgs = args.filter((arg) => arg !== "--no-open");
 
-console.log(`\n🚀 Running cucumber with args: ${cucumberArgs.join(" ")}\n`);
+// Build the cucumber command with the provided arguments
+const finalArgs = ["--format", "json:cucumber_report.json", ...cucumberArgs];
+
+console.log(`\n🚀 Running cucumber with args: ${finalArgs.join(" ")}\n`);
 
 // Run the cucumber command
-const result = spawnSync("cucumber-js", cucumberArgs, {
+const result = spawnSync("cucumber-js", finalArgs, {
   stdio: "inherit",
   shell: true,
 });
@@ -22,9 +26,13 @@ try {
   // Run the report generator
   require("./cucumber-html-report");
 
-  // Open the report
-  console.log("\nOpening report...");
-  execSync("npm run report:open", { stdio: "inherit" });
+  // Only open the report if --no-open flag is not present
+  if (!noOpen) {
+    console.log("\nOpening report...");
+    execSync("npm run report:open", { stdio: "inherit" });
+  } else {
+    console.log("\nSkipping report opening (--no-open flag present)");
+  }
 } catch (error) {
   console.error("Error generating or opening report:", error);
 }

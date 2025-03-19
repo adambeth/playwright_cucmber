@@ -24,7 +24,7 @@ BeforeAll(async function () {
   const isApiTestOnly = process.argv.some((arg) => arg.includes("@api-test"));
 
   if (!isApiTestOnly) {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: true });
     console.log("Browser launched for UI tests");
   } else {
     console.log("Skipping browser launch for API-only tests");
